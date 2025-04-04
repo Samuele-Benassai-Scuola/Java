@@ -1,0 +1,6 @@
+Creare un’interfaccia OperazioneMatematica con un metodo calcola(int a, int b). Implementare una classe che esegue un'operazione matematica passata come callback.
+Modificare l’esercizio precedente utilizzando una classe anonima.
+Semplificare il codice utilizzando un’espressione lambda.
+Modificare l’interfaccia per restituire un valore e testarla con più operazioni matematiche (somma, sottrazione, moltiplicazione, divisione).
+Utilizzare Consumer<String> per stampare un messaggio personalizzato.
+Utilizzare Supplier<Double> per generare un numero casuale e stamparlo.

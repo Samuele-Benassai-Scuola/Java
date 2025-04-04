@@ -1,0 +1,7 @@
+1
+Scrivi un programma Java che calcoli la somma di un array di numeri interi utilizzando il calcolo parallelo.
+L'obiettivo è suddividere l'array in segmenti, calcolare la somma di ciascun segmento in thread separati e quindi combinare i risultati per ottenere la somma totale.
+  
+2
+Scrivi un programma Java che trovi tutti i numeri primi in un dato intervallo utilizzando il calcolo parallelo.
+L'obiettivo è suddividere l'intervallo in segmenti, cercare i numeri primi in ciascun segmento in thread separati e quindi combinare i risultati.
