@@ -1,0 +1,34 @@
+Titolo: Simulatore di Corsa di Cavalli con Thread e JavaFX
+
+Obiettivi didattici
+
+Comprendere l’uso dei thread in Java.
+
+Utilizzare JavaFX per aggiornare l’interfaccia grafica.
+
+Sincronizzare thread con l’interfaccia grafica.
+
+Gestire eventi e animazioni.
+
+
+
+---
+
+Descrizione del progetto
+
+L'applicazione simula una corsa di 5 cavalli. Ogni cavallo è rappresentato da una barra (es. ProgressBar) o un'immagine che si muove orizzontalmente. Ogni cavallo corre in un thread separato. La corsa termina quando un cavallo raggiunge la fine del tracciato.
+
+
+---
+
+Requisiti
+
+Mostrare 5 cavalli (usando ProgressBar, Rectangle, o ImageView).
+
+Ogni cavallo avanza in modo casuale a intervalli regolari.
+
+La corsa inizia premendo un pulsante “Start”.
+
+Mostrare il vincitore alla fine della corsa.
+
+(Extra) Un pulsante per resettare la corsa.
