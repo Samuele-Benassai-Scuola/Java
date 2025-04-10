@@ -7,6 +7,9 @@ public class Horse implements Runnable {
     public static final int MAX_DISTANCE = 100;
     private static int nextId = 0;
 
+    private final int MIN_WAIT_TIME = 100;
+    private final int MAX_WAIT_TIME = 1000;
+
     private final int MAX_STEP = 5;
     private final int MAX_DELTA = 2;
     private final Random randomGenerator = new Random();
@@ -14,6 +17,7 @@ public class Horse implements Runnable {
     private int id;
     private String name;
     private int distance = 0;
+    private int time = 0;
     private boolean finished = false;
 
     public Horse(String name) {
@@ -39,6 +43,10 @@ public class Horse implements Runnable {
         this.name = name;
     }
 
+    public int getTime() {
+        return time;
+    }
+
     public boolean isFinished() {
         return finished;
     }
@@ -47,17 +55,13 @@ public class Horse implements Runnable {
         this.finished = finished;
     }
 
-
-    public Horse(boolean finished) {
-        this.finished = finished;
-    }
-
-    public void resetHorse() {
+    public void reset() {
         finished = false;
         distance = 0;
+        time = 0;
     }
 
-    public int randomStep() {
+    public int randomStepDistance() {
         final int baseStep = randomGenerator.nextInt(MAX_STEP + 1);
         final int baseDelta = randomGenerator.nextInt(MAX_DELTA + 1);
         final int deltaSign = randomGenerator.nextInt(2) == 0 ? 1 : -1;
@@ -65,8 +69,50 @@ public class Horse implements Runnable {
         return baseStep + baseDelta * deltaSign;
     }
 
+    public boolean randomStep() {
+        return step(randomStepDistance());
+    }
+
     public boolean step(int stepDistance) {
-        // TODO: finish this
+        if(finished)
+            return false;
+
+        distance += stepDistance;
+        checkFinished();
+
+        return true;
+    }
+
+    public boolean checkFinished() {
+        if(finished)
+            return true;
+        
+        if(distance >= MAX_DISTANCE) {
+            distance = MAX_DISTANCE;
+            finished = true;
+        }
+
+        return finished;
+    }
+
+    @Override
+    public void run() {
+        reset();
+
+        final long start = System.currentTimeMillis();
+
+        try {
+            while(!finished) {
+                Thread.sleep(randomGenerator.nextInt(MIN_WAIT_TIME, MAX_WAIT_TIME));
+                randomStep();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        final long end = System.currentTimeMillis();
+
+        time = (int) (end - start);
     }
     
 }
