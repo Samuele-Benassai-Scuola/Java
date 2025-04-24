@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Horse implements Runnable {
 
-    public static final int MAX_DISTANCE = 100;
+    public static final int MAX_DISTANCE = 50;
     private static int nextId = 0;
 
     private final int MIN_WAIT_TIME = 100;
@@ -47,6 +47,10 @@ public class Horse implements Runnable {
         return time;
     }
 
+    public int getDistance() {
+        return distance;
+    }
+
     public boolean isFinished() {
         return finished;
     }
@@ -62,8 +66,8 @@ public class Horse implements Runnable {
     }
 
     public int randomStepDistance() {
-        final int baseStep = randomGenerator.nextInt(MAX_STEP + 1);
         final int baseDelta = randomGenerator.nextInt(MAX_DELTA + 1);
+        final int baseStep = randomGenerator.nextInt(MAX_STEP - baseDelta + 1) + baseDelta;
         final int deltaSign = randomGenerator.nextInt(2) == 0 ? 1 : -1;
 
         return baseStep + baseDelta * deltaSign;
@@ -103,7 +107,7 @@ public class Horse implements Runnable {
 
         try {
             while(!finished) {
-                Thread.sleep(randomGenerator.nextInt(MIN_WAIT_TIME, MAX_WAIT_TIME));
+                Thread.sleep((long) randomGenerator.nextInt(MAX_WAIT_TIME - MIN_WAIT_TIME + 1) + MIN_WAIT_TIME);
                 randomStep();
             }
         } catch (InterruptedException e) {

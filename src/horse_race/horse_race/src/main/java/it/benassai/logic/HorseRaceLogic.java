@@ -7,13 +7,25 @@ public class HorseRaceLogic {
 
     public static final int HORSE_NUMBER = 5;
 
+    private HorseBet bet;
+
     private List<Horse> horses;
     private HorseRacer racer;
     private List<Horse> rank;
 
-    public HorseRaceLogic(List<String> horseNames) {
-        initHorses(horseNames);
+    private static HorseRaceLogic instance;
+
+    public static HorseRaceLogic getInstance() {
+        if (instance == null)
+            instance = new HorseRaceLogic();
+        
+        return instance;
+    }
+
+    private HorseRaceLogic() {
+        initHorses(HorseNames.NAMES);
         racer = new HorseRacer(horses);
+        bet = new HorseBet();
     }
 
     private void initHorses(List<String> names) {
@@ -21,6 +33,20 @@ public class HorseRaceLogic {
 
         for (int i = 0; i < HORSE_NUMBER; i++)
             horses.add(new Horse(names.get(i)));
+    }
+
+    public Horse getHorseByName(String name) {
+        for (final Horse horse : horses)
+            if (horse.getName().equals(name))
+                return horse;
+        return null;
+    }
+
+    public void resetAll() {
+        initHorses(HorseNames.NAMES);
+        racer = new HorseRacer(horses);
+        rank = null;
+        bet = new HorseBet();
     }
 
     public void race() {
@@ -41,11 +67,15 @@ public class HorseRaceLogic {
     }
 
     public List<Horse> getHorses() {
-        return List.copyOf(horses);
+        return horses;
     }
 
     public List<Horse> getRank() {
-        return List.copyOf(rank);
+        return rank;
+    }
+
+    public HorseBet getBet() {
+        return bet;
     }
     
 }

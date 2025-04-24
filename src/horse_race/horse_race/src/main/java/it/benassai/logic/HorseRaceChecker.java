@@ -13,7 +13,8 @@ public class HorseRaceChecker implements Runnable {
     @Override
     public void run() {
         while(!racer.isRacing());
-        while(racer.isRacing());
+        while(racer.isRacing())
+            System.out.println("debug");
 
         raceLogic.updateResult();
     }
