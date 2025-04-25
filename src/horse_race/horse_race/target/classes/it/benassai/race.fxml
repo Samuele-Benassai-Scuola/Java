@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -8,7 +9,16 @@
       <VBox alignment="CENTER">
          <children>
             <StackPane fx:id="horseBarsContainer" />
-            <StackPane fx:id="rankContainer" />
+            <StackPane>
+               <children>
+                  <VBox fx:id="rankContainer" />
+               </children></StackPane>
+            <StackPane>
+               <children>
+                  <VBox fx:id="betResultContainer" />
+               </children>
+            </StackPane>
+            <Button fx:id="restartButton" mnemonicParsing="false" onAction="#switchToBet" text="Restart" visible="false" />
          </children>
       </VBox>
    </children>

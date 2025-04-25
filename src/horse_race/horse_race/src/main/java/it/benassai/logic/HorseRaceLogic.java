@@ -15,7 +15,7 @@ public class HorseRaceLogic {
 
     private static HorseRaceLogic instance;
 
-    public static HorseRaceLogic getInstance() {
+    public synchronized static HorseRaceLogic getInstance() {
         if (instance == null)
             instance = new HorseRaceLogic();
         

@@ -12,9 +12,14 @@ public class HorseRaceChecker implements Runnable {
 
     @Override
     public void run() {
-        while(!racer.isRacing());
-        while(racer.isRacing())
-            System.out.println("debug");
+        try {
+            while(!racer.isRacing())
+                ;
+            while(racer.isRacing())
+                Thread.sleep(1);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         raceLogic.updateResult();
     }

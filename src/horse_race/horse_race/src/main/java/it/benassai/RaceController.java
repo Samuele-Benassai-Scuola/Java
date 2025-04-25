@@ -8,6 +8,7 @@ import it.benassai.logic.Horse;
 import it.benassai.logic.HorseRaceLogic;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,11 @@ public class RaceController {
     @FXML
     private StackPane horseBarsContainer;
     @FXML
-    private StackPane rankContainer;
+    private VBox rankContainer;
+    @FXML
+    private VBox betResultContainer;
+    @FXML
+    private Button restartButton;
 
     @FXML
     private void initialize() {
@@ -69,6 +74,8 @@ public class RaceController {
 
     public void onRaceFinished() {
         initRank();
+        initBetResult();
+        restartButton.setVisible(true);
     }
 
     private void initRank() {
@@ -81,8 +88,8 @@ public class RaceController {
             final HBox container = new HBox();
             container.setAlignment(Pos.CENTER);
 
-            final Label name = new Label(horse.getName());
-            final Label time = new Label("" + horse.getTime());
+            final Label name = new Label(horse.getName() + ": ");
+            final Label time = new Label("" + ((double) horse.getTime() / 1000) + "s");
 
             name.setAlignment(Pos.CENTER);
             time.setAlignment(Pos.CENTER);
@@ -92,8 +99,32 @@ public class RaceController {
         }
     }
 
+    private void initBetResult() {
+        final Label title = new Label("Bet result:");
+        title.setAlignment(Pos.CENTER);
+
+        rankContainer.getChildren().add(title);
+
+        final HBox container = new HBox();
+        container.setAlignment(Pos.CENTER);
+
+        final String resultString =
+            HorseRaceLogic.getInstance().getBet().getName().equals(
+                HorseRaceLogic.getInstance().getRank().get(0).getName()
+            ) ?
+            "You won!" : "You lost.";
+
+        final Label resultLabel = new Label(resultString);
+
+        resultLabel.setAlignment(Pos.CENTER);
+
+        container.getChildren().add(resultLabel);
+        rankContainer.getChildren().add(container);
+    }
+
     @FXML
     private void switchToBet() throws IOException {
+        HorseRaceLogic.getInstance().resetAll();
         App.setRoot("bet");
     }
 
