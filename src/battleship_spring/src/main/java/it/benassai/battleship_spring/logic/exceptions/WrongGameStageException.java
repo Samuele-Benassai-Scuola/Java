@@ -1,6 +1,6 @@
-package it.benassai.logic.exceptions;
+package it.benassai.battleship_spring.logic.exceptions;
 
-import it.benassai.logic.enums.GameStage;
+import it.benassai.battleship_spring.logic.enums.GameStage;
 import lombok.Getter;
 import lombok.Setter;
 

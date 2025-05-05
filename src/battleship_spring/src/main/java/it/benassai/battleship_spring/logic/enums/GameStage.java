@@ -1,4 +1,4 @@
-package it.benassai.logic.enums;
+package it.benassai.battleship_spring.logic.enums;
 
 import java.util.Arrays;
 import java.util.List;

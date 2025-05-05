@@ -1,4 +1,4 @@
-package it.benassai.logic.exceptions;
+package it.benassai.battleship_spring.logic.exceptions;
 
 public class AlreadyPutException extends RuntimeException {
 

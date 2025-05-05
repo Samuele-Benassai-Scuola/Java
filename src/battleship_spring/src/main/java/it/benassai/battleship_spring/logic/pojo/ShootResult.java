@@ -1,7 +1,7 @@
-package it.benassai.logic.pojo;
+package it.benassai.battleship_spring.logic.pojo;
 
-import it.benassai.logic.Position;
-import it.benassai.logic.enums.Operation;
+import it.benassai.battleship_spring.logic.Position;
+import it.benassai.battleship_spring.logic.enums.Operation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

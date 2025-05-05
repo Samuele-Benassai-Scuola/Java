@@ -1,0 +1,22 @@
+
+:root {
+    --cell-size: 30px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.ship {
+    background-color: #000;
+    width: calc(var(--cell-size) / 2);
+    height: calc(var(--cell-size) / 2);
+}

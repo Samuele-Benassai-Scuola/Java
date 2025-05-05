@@ -1,11 +1,11 @@
-package it.benassai.logic;
+package it.benassai.battleship_spring.logic;
 
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.benassai.logic.enums.Orientation;
+import it.benassai.battleship_spring.logic.enums.Orientation;
 import lombok.Getter;
 
 @Getter

@@ -1,18 +1,18 @@
-package it.benassai.logic;
+package it.benassai.battleship_spring.logic;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.benassai.logic.enums.GameStage;
-import it.benassai.logic.enums.Operation;
-import it.benassai.logic.exceptions.AlreadyPutException;
-import it.benassai.logic.exceptions.AlreadyShotException;
-import it.benassai.logic.exceptions.CollisionException;
-import it.benassai.logic.exceptions.WrongGameStageException;
-import it.benassai.logic.pojo.LogResult;
-import it.benassai.logic.pojo.PlaceResult;
-import it.benassai.logic.pojo.ShootResult;
-import it.benassai.logic.pojo.StartResult;
+import it.benassai.battleship_spring.logic.enums.GameStage;
+import it.benassai.battleship_spring.logic.enums.Operation;
+import it.benassai.battleship_spring.logic.exceptions.AlreadyPutException;
+import it.benassai.battleship_spring.logic.exceptions.AlreadyShotException;
+import it.benassai.battleship_spring.logic.exceptions.CollisionException;
+import it.benassai.battleship_spring.logic.exceptions.WrongGameStageException;
+import it.benassai.battleship_spring.logic.pojo.LogResult;
+import it.benassai.battleship_spring.logic.pojo.PlaceResult;
+import it.benassai.battleship_spring.logic.pojo.ShootResult;
+import it.benassai.battleship_spring.logic.pojo.StartResult;
 import lombok.Getter;
 
 @Getter

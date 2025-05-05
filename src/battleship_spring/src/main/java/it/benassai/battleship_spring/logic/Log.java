@@ -1,9 +1,9 @@
-package it.benassai.logic;
+package it.benassai.battleship_spring.logic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.benassai.logic.pojo.LogResult;
+import it.benassai.battleship_spring.logic.pojo.LogResult;
 import lombok.Getter;
 
 @Getter

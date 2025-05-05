@@ -1,4 +1,4 @@
-package it.benassai.logic;
+package it.benassai.battleship_spring.logic;
 
 import lombok.Data;
 

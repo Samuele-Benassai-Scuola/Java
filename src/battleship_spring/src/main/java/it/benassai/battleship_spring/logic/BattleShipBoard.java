@@ -1,4 +1,4 @@
-package it.benassai.logic;
+package it.benassai.battleship_spring.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import it.benassai.logic.enums.GameStage;
-import it.benassai.logic.exceptions.AlreadyPutException;
-import it.benassai.logic.exceptions.AlreadyShotException;
-import it.benassai.logic.exceptions.CollisionException;
-import it.benassai.logic.exceptions.WrongGameStageException;
-import it.benassai.logic.pojo.PlaceResult;
-import it.benassai.logic.pojo.ShootResult;
+import it.benassai.battleship_spring.logic.enums.GameStage;
+import it.benassai.battleship_spring.logic.exceptions.AlreadyPutException;
+import it.benassai.battleship_spring.logic.exceptions.AlreadyShotException;
+import it.benassai.battleship_spring.logic.exceptions.CollisionException;
+import it.benassai.battleship_spring.logic.exceptions.WrongGameStageException;
+import it.benassai.battleship_spring.logic.pojo.PlaceResult;
+import it.benassai.battleship_spring.logic.pojo.ShootResult;
 import lombok.Getter;
 
 
