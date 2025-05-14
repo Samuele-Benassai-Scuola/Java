@@ -14,7 +14,7 @@ import it.benassai.battleship_spring.logic.BattleShipGame;
 @RequestMapping("/api")
 public class GameController {
 
-    private BattleShipGame battleShipGame = new BattleShipGame(null, null);
+    private BattleShipGame battleShipGame = new BattleShipGame("a", "b");
 
     @GetMapping("/gameStage")
     public Map<String, String> getGameStage() {
