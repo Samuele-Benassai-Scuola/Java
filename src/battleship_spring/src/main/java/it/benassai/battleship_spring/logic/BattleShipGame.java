@@ -169,6 +169,15 @@ public class BattleShipGame {
         return boards[index];
     }
 
+    public List<Tile> getShotTiles(String owner) throws IllegalArgumentException {
+        final int index = indexOfOwner(owner);
+
+        if(index < 0)
+            throw new IllegalArgumentException("Owner not present.");
+
+        return boards[index].getAllShots();
+    }
+
     public ShootResult shoot(Position pos) throws WrongGameStageException, IllegalArgumentException, AlreadyShotException {
         if(gameStage != GameStage.PLAYS)
             throw new WrongGameStageException(gameStage);
