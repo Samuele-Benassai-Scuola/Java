@@ -25,12 +25,15 @@ public class GameController {
     private BattleShipGame battleShipGame;
 
     @PostMapping("/initialize")
-    public void initialize(@RequestBody String owner1, @RequestBody String owner2) {
+    public void initialize(@RequestBody String[] owners) {
         if (battleShipGame != null) {
             return; 
         }
+        if (owners.length != 2) {
+            return;
+        }
 
-        battleShipGame = new BattleShipGame(owner1, owner2);
+        battleShipGame = new BattleShipGame(owners[0], owners[1]);
     }
 
     @GetMapping("/gameStage")
@@ -68,17 +71,26 @@ public class GameController {
     }
 
     @GetMapping("/board/hidden/{owner}")
-    public Map<String, List<Tile>> getHiddenBoard(@PathVariable String owner) {
-        final Map<String, List<Tile>> result = new HashMap<>();
-
-        // TODO: put it with separate lists, not Tile but Position
+    public Map<String, List<Position>> getHiddenBoard(@PathVariable String owner) {
+        final Map<String, List<Position>> result = new HashMap<>();
 
         final BattleShipBoard board = battleShipGame.getBoard(owner);
 
-        result.put("shot", board.getAllShots());
+        final List<Position> hitPositions = new ArrayList<>();
+        final List<Position> missPositions = new ArrayList<>();
+
+        for (final Tile tile : board.getAllShots()) {
+            if (tile.isHit()) {
+                hitPositions.add(tile);
+            }
+            else {
+                missPositions.add(tile);
+            }
+        }
+
+        result.put("hit", hitPositions);
+        result.put("miss", missPositions);
 
         return result;
     }
-
-
 }
