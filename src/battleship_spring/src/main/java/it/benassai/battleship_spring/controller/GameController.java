@@ -40,7 +40,12 @@ public class GameController {
     public Map<String, String> getGameStage() {
         final Map<String, String> result = new HashMap<>();
 
-        result.put("gameStage", battleShipGame.getGameStage().toString());
+        if (battleShipGame != null) {
+            result.put("gameStage", battleShipGame.getGameStage().toString());
+        }
+        else {
+            result.put("gameStage", null);
+        }
 
         return result;
     }
