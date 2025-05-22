@@ -28,10 +28,19 @@ $(document).ready(async () => {
     })
 })
 */
-
+/*
+import { initializeHider } from "./initializers"
 import { initializeSetup, initializeDefualt, initializeEnd, initializePlays } from "./initialize";
-
+import { toggleHider } from "./visibility";
+*/
 $(document).ready(async () => {
+
+    // common setups
+
+    initializeHider()
+
+    // gameStage setup
+
     const gameStage = await $.ajax({
         url: '/api/gameStage',
         method: 'GET',
@@ -40,15 +49,15 @@ $(document).ready(async () => {
     switch (gameStage) {
         case 'SETUP':
             await initializeSetup()
-            break;
+            break
         case 'PLAYS':
             await initializePlays()
-            break;
+            break
         case 'END':
             await initializeEnd()
-            break;
+            break
         default:
-            await initializeDefualt()
-            break;
+            await initializeDefault()
+            break
     }
 })

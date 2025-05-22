@@ -1,16 +1,18 @@
 
-export async function initializeSetup() {
+async function initializeSetup() {
     return 
 }
 
-export async function initializePlays() {
+async function initializePlays() {
     return 
 }
 
-export async function initializeEnd() {
+async function initializeEnd() {
     return
 } 
 
-export async function initializeDefualt() {
-    return
+async function initializeDefault() {
+    $('#sub-head').text( 'Digita i nomi dei giocatori!' )
+
+    createInitializeOwners()
 }

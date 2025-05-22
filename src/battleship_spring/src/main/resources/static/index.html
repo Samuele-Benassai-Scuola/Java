@@ -11,12 +11,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="z-1 position-absolute bg-white border border-black border-2">
-
+    <div id="hider" class="d-none z-1 position-absolute bg-white border border-black border-2 w-100 h-100 d-flex align-items-center justify-content-center">
+        <div class="text-center">
+            <h1>
+                Turno del giocatore <span id="current-player"></span>
+            </h1>
+            <button id="close-hider" type="button" class="btn btn-primary">
+                OK!
+            </button>
+        </div>
     </div>
+
+    <h1 id="head" class="text-center my-2">
+        Battaglia Navale
+    </h1>
+
+    <h3 id="sub-head" class="text-center mt-2 mb-5">
+    </h3>
     
     
-    
+    <script src="./js/visibility.js"></script>
     <script src="./js/initializers.js"></script>
     <script src="./js/initialize.js"></script>
     <script src="./js/script.js"></script>
