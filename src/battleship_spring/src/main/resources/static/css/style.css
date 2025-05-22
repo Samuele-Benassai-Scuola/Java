@@ -5,7 +5,8 @@
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, 30px);
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(10, var(--cell-size));
 }
 
 .cell {
@@ -15,8 +16,19 @@
     text-align: center;
 }
 
-.ship {
-    background-color: #000;
-    width: calc(var(--cell-size) / 2);
-    height: calc(var(--cell-size) / 2);
+.clickable:hover {
+    background-color: #aaa;
 }
+
+.shot {
+    background-color: #77f !important;
+}
+
+.shot.ship {
+    background-color: #f00 !important;
+}
+
+.hit {
+    background-color: #f00 !important;
+}
+

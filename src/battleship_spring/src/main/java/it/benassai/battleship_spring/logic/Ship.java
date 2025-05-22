@@ -100,61 +100,16 @@ public class Ship {
     }
 
     public boolean intersects(Ship other) {
-        final Tile headThis = this.getHead();
-        final Tile tailThis = this.getTail();
-        final Tile headOther = other.getHead();
-        final Tile tailOther = other.getTail();
-
-        if(headThis.equals(headOther))
-            return true;
-
-        if(this.orientation == other.orientation) {
-
-            if(headThis.getX() != headOther.getX() && headThis.getX() != headOther.getX())
-                return false;
-
-            boolean mainCheck = false;
-            boolean zeroCheck = false;
-
-            // mainCheck tries to see if they intersect, and so does zeroCheck
-            // *---* #----#
-            // If there's a case like the top one, the two checks are the same
-            // *---#~~*----#
-            // If there's a case like the top one, the two checks are different
-            //
-            // zeroCheck is always the same, except if one head/tail coincides
-            // the only case where this check won't work is if the two are size 1
-            // and coincide (already checked when the heads are compared)
-
-            if(headThis.compareTo(tailOther) > 0 ^ tailThis.compareTo(headOther) > 0)
-                mainCheck = true;
-            if(headThis.compareTo(tailOther) < 0 ^ tailThis.compareTo(headOther) < 0)
-                zeroCheck = true;
-            
-            if(mainCheck != zeroCheck)
-                return true;
-            
-            return mainCheck;
+        for (final Position otherPos : other.getTiles()) {
+            for (final Position thisPos : this.getTiles()) {
+                if (otherPos.equals(thisPos)) {
+                    return true;
+                }
+            }
         }
-        else {
-            // i is the intersection of the lines of the two ships
-            // if it is included in both ships, then they intersect
-            // it is included if the value changing is between the head and tail
 
-            final int ix = this.orientation == Orientation.VERTICAL ? headThis.getX() : headOther.getX();
-            final int iy = this.orientation == Orientation.HORIZONTAL ? headThis.getY() : headOther.getY();
-
-            final boolean thisContains = this.orientation == Orientation.HORIZONTAL
-                ? headThis.getX() <= ix && ix <= tailThis.getX()
-                : headThis.getY() <= iy && iy <= tailThis.getY();
-            
-            final boolean otherContains = other.orientation == Orientation.HORIZONTAL
-                ? headOther.getX() <= ix && ix <= tailOther.getX()
-                : headOther.getY() <= iy && iy <= tailOther.getY();
-
-
-            return thisContains && otherContains;
-        }
+        return false;
     }
+    
 
 }

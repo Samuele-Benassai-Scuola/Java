@@ -1,50 +1,29 @@
 
-/*
-$(document).ready(async () => {
-    await $.ajax({
-        url: '/api/initialize',
-        method: 'POST',
-        contentType: 'application/json', // Tells the server you're sending JSON
-        data: JSON.stringify( ['A', 'B'] ),
-        error: function() {
-            alert('Error in initializaiton.');
-        }
-    });
 
-    await $.ajax({
-        url: '/api/board/A',
-        method: 'GET',
-        success: function(res) {
-            console.log(res)
-        }
-    })
+function restart() {
+    window.location.reload()
+}
 
-    await $.ajax({
-        url: '/api/gameStage',
-        method: 'GET',
-        success: function(res) {
-            console.log(res)
-        }
-    })
-})
-*/
-/*
-import { initializeHider } from "./initializers"
-import { initializeSetup, initializeDefualt, initializeEnd, initializePlays } from "./initialize";
-import { toggleHider } from "./visibility";
-*/
+
+
 $(document).ready(async () => {
 
     // common setups
 
+    
     initializeHider()
+    initializeLog()
+    initializeReset()
+    createNewBoard('#owner-0 .board')
+    createNewBoard('#owner-1 .board')
 
     // gameStage setup
 
-    const gameStage = await $.ajax({
-        url: '/api/gameStage',
-        method: 'GET',
-    })
+    const gameStage = (await $.ajax({
+            url: '/api/gameStage',
+            method: 'GET',
+        }))
+        .gameStage
 
     switch (gameStage) {
         case 'SETUP':

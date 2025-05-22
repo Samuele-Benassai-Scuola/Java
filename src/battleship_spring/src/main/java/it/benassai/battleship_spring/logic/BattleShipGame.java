@@ -29,6 +29,10 @@ public class BattleShipGame {
     public BattleShipGame(String owner0, String owner1) {
         if(owner0 == null || owner1 == null)
             throw new IllegalArgumentException("Owner[s] null.");
+        if(owner0.equals("") || owner1.equals(""))
+            throw new IllegalArgumentException("Owner[s] empty.");
+        if(owner0.equals(owner1))
+            throw new IllegalArgumentException("Owners are the same.");
         
         this.id = nextId++;
         this.boards[0] = new BattleShipBoard(this.id, owner0);
