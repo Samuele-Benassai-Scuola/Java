@@ -73,7 +73,7 @@ function setupClickableCells(owner, gameStage) {
     })
 }
 
-function drawBoard(owner, boardData) {
+function drawBoard(ownerId, boardData) {
     const colors = [
         "#f58c84",
         "#f7ac57",
@@ -88,7 +88,7 @@ function drawBoard(owner, boardData) {
 
     boardData.shot.forEach(pos => {
         $(
-            '#owner-' + owner + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+            '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
         ).addClass('shot')
     })
 
@@ -97,87 +97,87 @@ function drawBoard(owner, boardData) {
 
         value.forEach(pos => {
             $(
-                '#owner-' + owner + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
             ).css('background-color', color)
 
             $(
-                '#owner-' + owner + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
             ).addClass('ship')
         })
     })
 }
 
-function drawBoardHidden(owner, boardData) {
+function drawBoardHidden(ownerId, boardData) {
     if (boardData.miss) {
         boardData.miss.forEach(pos => {
             $(
-                '#owner-' + owner + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
             ).addClass('shot')
         })
     }
     if (boardData.hit) {
         boardData.hit.forEach(pos => {
             $(
-                '#owner-' + owner + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
             ).addClass('hit')
         })
     }
 }
 
-function createBoardsSetup(owners, currentOwner, boardData) {
+function createBoardsSetup(owners, currentOwnerId, boardData) {
     document.getElementById('master-container').innerHTML +=
         `
         <div id="boards" class="row w-75 d-flex justify-content-center mx-auto text-center">
-            <div id="owner-${owners[0]}" class="col-6 text-center">
+            <div id="owner-0" class="col-6 text-center">
                 <h3 class="title">${owners[0]}</h3>
                 <div class="board justify-content-center"></div>
             </div>
-            <div id="owner-${owners[1]}" class="col-6 text-center">
+            <div id="owner-1" class="col-6 text-center">
                 <h3 class="title">${owners[1]}</h3>
                 <div class="board justify-content-center"></div>
             </div>
         </div>
         `
     
-    createNewBoard('#owner-' + owners[0] + ' .board')
-    createNewBoard('#owner-' + owners[1] + ' .board')
+    createNewBoard('#owner-0 .board')
+    createNewBoard('#owner-1 .board')
 
-    $('#owner-' + currentOwner + ' .cell').each(function() {
+    $('#owner-' + currentOwnerId + ' .cell').each(function() {
         $(this).addClass('clickable')
     })
 
-    setupClickableCells(currentOwner, 'SETUP')
-    drawBoard(currentOwner, boardData)
+    setupClickableCells(owners[currentOwnerId], 'SETUP')
+    drawBoard(currentOwnerId, boardData)
 }
 
-function createBoardsPlays(owners, currentOwner, currentBoardData, hiddenBoardData) {
+function createBoardsPlays(owners, currentOwnerId, currentBoardData, hiddenBoardData) {
     document.getElementById('master-container').innerHTML +=
         `
         <div id="boards" class="row w-75 d-flex justify-content-center mx-auto text-center">
-            <div id="owner-${owners[0]}" class="col-6 text-center">
+            <div id="owner-0" class="col-6 text-center">
                 <h3 class="title">${owners[0]}</h3>
                 <div class="board justify-content-center"></div>
             </div>
-            <div id="owner-${owners[1]}" class="col-6 text-center">
+            <div id="owner-1" class="col-6 text-center">
                 <h3 class="title">${owners[1]}</h3>
                 <div class="board justify-content-center"></div>
             </div>
         </div>
         `
 
-    createNewBoard('#owner-' + owners[0] + ' .board')
-    createNewBoard('#owner-' + owners[1] + ' .board')
+    createNewBoard('#owner-0 .board')
+    createNewBoard('#owner-1 .board')
 
-    const hiddenOwner = owners.find(owner => owner !== currentOwner)
+    const hiddenOwnerId = [0, 1].find(owner => owner !== owners[currentOwnerId])
 
-    $('#owner-' + hiddenOwner + ' .cell').each(function() {
+    $('#owner-' + hiddenOwnerId + ' .cell').each(function() {
         $(this).addClass('clickable')
     })
 
-    setupClickableCells(currentOwner, 'PLAYS')
+    setupClickableCells(owners[currentOwnerId], 'PLAYS')
 
-    drawBoard(currentOwner, currentBoardData)
-    drawBoardHidden(hiddenOwner, hiddenBoardData)
+    drawBoard(currentOwnerId, currentBoardData)
+    drawBoardHidden(hiddenOwnerId, hiddenBoardData)
 }
 
 function createBoardsEnd(owners, owner0Data, owner1Data) {

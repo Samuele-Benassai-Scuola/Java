@@ -6,14 +6,14 @@ async function initializeSetup() {
     }))
     .owners
 
-    let currentOwner = owners[0]
+    let currentOwner = 0
     let remainingShips = await $.ajax({
         url: '/api/remainingShips/' + owners[0],
         method: 'GET',
     })
 
     if (Object.keys(remainingShips).length === 0) {
-        currentOwner = owners[1]
+        currentOwner = 1
         remainingShips = await $.ajax({
             url: '/api/remainingShips/' + owners[1],
             method: 'GET',
@@ -21,11 +21,11 @@ async function initializeSetup() {
     }
 
     const boardData = await $.ajax({
-        url: '/api/board/' + currentOwner,
+        url: '/api/board/' + owners[currentOwner],
         method: 'GET',
     })
 
-    $('#sub-head').text( currentOwner + ', è il tuo turno di piazzare!' )
+    $('#sub-head').text( owners[currentOwner] + ', è il tuo turno di piazzare!' )
 
     createBoardsSetup(owners, currentOwner, boardData)
     createPlaceInputs(remainingShips)
@@ -40,27 +40,30 @@ async function initializePlays() {
     }))
     .owners
 
-    const currentOwner = (await $.ajax({
-        url: '/api/owners/current',
-        method: 'GET',
-    }))
-    .owner
+    const currOwn = await $.ajax({
+            url: '/api/owners/current',
+            method: 'GET',
+        });
+
+    const currentOwnerId = [0, 1].find(
+        ownerId => owners[ownerId] == currOwn.owner
+    )
 
     const currentBoardData = await $.ajax({
-        url: '/api/board/' + currentOwner,
+        url: '/api/board/' + owners[currentOwnerId],
         method: 'GET',
     })
 
     const hiddenBoardData = await $.ajax({
-        url: '/api/board/hidden/' + owners.find(owner => owner !== currentOwner),
+        url: '/api/board/hidden/' + owners.find(owner => owner !== owners[currentOwnerId]),
         method: 'GET',
     })
 
-    $('#sub-head').text( currentOwner + ', è il tuo turno di colpire!' )
+    $('#sub-head').text( owners[currentOwnerId] + ', è il tuo turno di colpire!' )
 
-    transitionHider(currentOwner)
+    transitionHider(owners[currentOwnerId])
 
-    createBoardsPlays(owners, currentOwner, currentBoardData, hiddenBoardData)
+    createBoardsPlays(owners, currentOwnerId, currentBoardData, hiddenBoardData)
 
     return 
 }
