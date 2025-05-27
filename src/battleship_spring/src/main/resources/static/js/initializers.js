@@ -168,7 +168,7 @@ function createBoardsPlays(owners, currentOwnerId, currentBoardData, hiddenBoard
     createNewBoard('#owner-0 .board')
     createNewBoard('#owner-1 .board')
 
-    const hiddenOwnerId = [0, 1].find(owner => owner !== owners[currentOwnerId])
+    const hiddenOwnerId = [0, 1].find(ownerId => ownerId !== currentOwnerId)
 
     $('#owner-' + hiddenOwnerId + ' .cell').each(function() {
         $(this).addClass('clickable')
@@ -211,7 +211,7 @@ function createPlaceInputs(remainingShips) {
                     Orientamento
                 </h4>
                 <div class="form-check">
-                    <input id="orientation-horizontal" class="form-check-input" type="radio" name="orientation" value="HORIZONTAL">
+                    <input id="orientation-horizontal" class="form-check-input" type="radio" name="orientation" value="HORIZONTAL" checked>
                     <label class="form-check-label" for="orientation-horizontal">
                         ORIZZONTALE
                     </label>
@@ -230,17 +230,20 @@ function createPlaceInputs(remainingShips) {
             </div>
         </div>
         `
-
+    hasChecked = false
     Object.keys(remainingShips).forEach(size => {
+        const check = hasChecked ? '' : 'checked'
         document.getElementById('size-form').innerHTML +=
             `
             <div class="form-check">
-                <input id="size-${size}" class="form-check-input" type="radio" name="size" value="${size}">
+                <input id="size-${size}" class="form-check-input" type="radio" name="size" value="${size}" ${check}>
                 <label class="form-check-label" for="size-${size}">
                     ${size}
                 </label>
             </div>
             `
+        
+        hasChecked = true
     })
 }
 

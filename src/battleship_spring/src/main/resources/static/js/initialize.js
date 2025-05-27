@@ -40,13 +40,14 @@ async function initializePlays() {
     }))
     .owners
 
-    const currOwn = await $.ajax({
+    const currentOwner = (await $.ajax({
             url: '/api/owners/current',
             method: 'GET',
-        });
+        }))
+        .owner
 
     const currentOwnerId = [0, 1].find(
-        ownerId => owners[ownerId] == currOwn.owner
+        ownerId => owners[ownerId] == currentOwner
     )
 
     const currentBoardData = await $.ajax({
@@ -55,13 +56,13 @@ async function initializePlays() {
     })
 
     const hiddenBoardData = await $.ajax({
-        url: '/api/board/hidden/' + owners.find(owner => owner !== owners[currentOwnerId]),
+        url: '/api/board/hidden/' + owners.find(owner => owner !== currentOwner),
         method: 'GET',
     })
 
-    $('#sub-head').text( owners[currentOwnerId] + ', è il tuo turno di colpire!' )
+    $('#sub-head').text( currentOwner + ', è il tuo turno di colpire!' )
 
-    transitionHider(owners[currentOwnerId])
+    transitionHider(currentOwner)
 
     createBoardsPlays(owners, currentOwnerId, currentBoardData, hiddenBoardData)
 
