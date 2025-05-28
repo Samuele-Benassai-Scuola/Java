@@ -1,5 +1,8 @@
 
 
+let shipSize
+let shipOrientation
+
 function createNewBoard(board) {
     $(board).empty()
 
@@ -209,8 +212,12 @@ function createBoardsEnd(owners, owner0Data, owner1Data) {
     drawBoard(owners[1], owner1Data)
 }
 
+function createOrientationInput() {
+
+}
+
 function createPlaceInputs(remainingShips) {
-    document.getElementById('master-container').innerHTML +=
+    /*document.getElementById('master-container').innerHTML +=
         `
         <div class="row w-25 mx-auto mt-3">
             <div id="orientation-form" class="col-lg-6 text-center">
@@ -251,7 +258,30 @@ function createPlaceInputs(remainingShips) {
             `
         
         hasChecked = true
-    })
+    })*/
+
+    size = Math.min(...Object.keys(remainingShips))
+
+    document.getElementById('master-container').innerHTML +=
+        `
+        <div class="text-center mt-5">
+            <h3>
+                Inserire la nave di lunghezza 
+                <span id="size">
+                    ${size}
+                </span>
+            </h3>
+            <h5>
+                Attuale orientamento:
+                <span id="orientation">
+                    ${orientation}
+                </span>
+            </h5>
+            <h5>
+                Ruotare con "R"
+            </h5>
+        </div>
+        `
 }
 
 function createInitializeOwners() {

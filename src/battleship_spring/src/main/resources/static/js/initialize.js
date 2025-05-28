@@ -28,6 +28,7 @@ async function initializeSetup() {
     $('#sub-head').text( owners[currentOwner] + ', è il tuo turno di piazzare!' )
 
     createBoardsSetup(owners, currentOwner, boardData)
+    createOrientationInput()
     createPlaceInputs(remainingShips)
     
     return 
