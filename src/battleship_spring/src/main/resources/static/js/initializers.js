@@ -20,9 +20,6 @@ function setupClickableCells(owner, gameStage) {
 
         switch (gameStage) {
             case 'SETUP':
-                const orientation = $('input[name="orientation"]:checked').val()
-                const size = $('input[name="size"]:checked').val()
-
                 $.ajax({
                     url: '/api/place',
                     method: 'POST',
@@ -31,8 +28,8 @@ function setupClickableCells(owner, gameStage) {
                         owner: owner,
                         x: x,
                         y: y,
-                        size: size,
-                        orientation: orientation
+                        size: shipSize,
+                        orientation: shipOrientation
                     }),
                     success: () => {
                         restart()
@@ -72,6 +69,17 @@ function setupClickableCells(owner, gameStage) {
                 break
             default:
                 break
+        }
+    })
+}
+
+function createOrientationInput() {
+    shipOrientation = 'HORIZONTAL'
+
+    $(document).on('keydown', function(event) {
+        if (event.key === 'r' || event.key === 'R') {
+            shipOrientation = shipOrientation === 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
+            createPlaceInputs(null)
         }
     })
 }
@@ -212,76 +220,40 @@ function createBoardsEnd(owners, owner0Data, owner1Data) {
     drawBoard(owners[1], owner1Data)
 }
 
-function createOrientationInput() {
-
-}
-
 function createPlaceInputs(remainingShips) {
-    /*document.getElementById('master-container').innerHTML +=
-        `
-        <div class="row w-25 mx-auto mt-3">
-            <div id="orientation-form" class="col-lg-6 text-center">
-                <h4>
-                    Orientamento
-                </h4>
-                <div class="form-check">
-                    <input id="orientation-horizontal" class="form-check-input" type="radio" name="orientation" value="HORIZONTAL" checked>
-                    <label class="form-check-label" for="orientation-horizontal">
-                        ORIZZONTALE
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input id="orientation-vertical" class="form-check-input" type="radio" name="orientation" value="VERTICAL">
-                    <label class="form-check-label" for="orientation-vertical">
-                        VERTICALE
-                    </label>
-                </div>
-            </div>
-            <div id="size-form" class="col-lg-6 text-center">
-                <h4>
-                    Dimensione
-                </h4>
-            </div>
-        </div>
-        `
-    hasChecked = false
-    Object.keys(remainingShips).forEach(size => {
-        const check = hasChecked ? '' : 'checked'
-        document.getElementById('size-form').innerHTML +=
+    const translator = {
+        'HORIZONTAL': 'ORIZZONTALE',
+        'VERTICAL': 'VERTICALE'
+    }
+
+    if (!document.getElementById('place-inputs')) {
+        shipSize = Math.min(...Object.keys(remainingShips))
+
+        document.getElementById('master-container').innerHTML +=
             `
-            <div class="form-check">
-                <input id="size-${size}" class="form-check-input" type="radio" name="size" value="${size}" ${check}>
-                <label class="form-check-label" for="size-${size}">
-                    ${size}
-                </label>
+            <div id="place-inputs" class=text-center mt-5">
+                <h3>
+                    Inserire una nave di lunghezza 
+                    <span id="size">
+                        ${shipSize}
+                    </span>
+                </h3>
+                <h5>
+                    Attuale orientamento:
+                    <span id="orientation">
+                        ${translator[shipOrientation]}
+                    </span>
+                </h5>
+                <h5>
+                    Ruotare con "R"
+                </h5>
             </div>
             `
-        
-        hasChecked = true
-    })*/
-
-    size = Math.min(...Object.keys(remainingShips))
-
-    document.getElementById('master-container').innerHTML +=
-        `
-        <div class="text-center mt-5">
-            <h3>
-                Inserire la nave di lunghezza 
-                <span id="size">
-                    ${size}
-                </span>
-            </h3>
-            <h5>
-                Attuale orientamento:
-                <span id="orientation">
-                    ${orientation}
-                </span>
-            </h5>
-            <h5>
-                Ruotare con "R"
-            </h5>
-        </div>
-        `
+    }
+    else {
+        document.getElementById('size').innerHTML = shipSize
+        document.getElementById('orientation').innerHTML = translator[shipOrientation]
+    }
 }
 
 function createInitializeOwners() {
