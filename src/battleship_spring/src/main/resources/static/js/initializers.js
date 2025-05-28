@@ -89,7 +89,7 @@ function drawBoard(ownerId, boardData) {
     boardData.shot.forEach(pos => {
         $(
             '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
-        ).addClass('shot')
+        ).addClass('shot').text('~')
     })
 
     Object.entries(boardData).filter(([key, value]) => key !== 'shot').forEach(([key, value]) => {
@@ -98,11 +98,18 @@ function drawBoard(ownerId, boardData) {
         value.forEach(pos => {
             $(
                 '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
-            ).css('background-color', color)
+            ).css('background-color', color).addClass('ship')
 
-            $(
-                '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
-            ).addClass('ship')
+            if (
+                $(
+                    '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                ).hasClass('shot')
+            )
+            {
+                $(
+                    '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
+                ).text('x')
+            }
         })
     })
 }
@@ -112,14 +119,14 @@ function drawBoardHidden(ownerId, boardData) {
         boardData.miss.forEach(pos => {
             $(
                 '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
-            ).addClass('shot')
+            ).addClass('shot').text('~')
         })
     }
     if (boardData.hit) {
         boardData.hit.forEach(pos => {
             $(
                 '#owner-' + ownerId + ' .cell[data-pos-x="' + pos.x + '"][data-pos-y="' + pos.y + '"]'
-            ).addClass('hit')
+            ).addClass('hit').text('x')
         })
     }
 }
